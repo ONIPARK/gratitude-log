@@ -26,8 +26,20 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
 	runtimeOnly 'org.postgresql:postgresql:42.7.8'
 
+	// ログイン　로그인/권한 필요하면
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// アドレス認証　이메일 인증/비번찾기 필요하면
+	// implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
