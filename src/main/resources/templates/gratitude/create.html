@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>感謝日誌</title>
+</head>
+<body>
+<h1>感謝日誌</h1>
+
+<p th:if="${savedId}">
+  保存完了 <span th:text="${savedId}"></span>
+</p>
+
+<form th:action="@{/gratitude}" method="post" th:object="${req}">
+  <div>
+    <label>タイトル</label><br/>
+    <input th:field="*{title}" required maxlength="200"/>
+  </div>
+
+  <div style="margin-top:10px;">
+    <label>内容</label><br/>
+    <textarea th:field="*{content}" required rows="10" cols="60"></textarea>
+  </div>
+
+  <div style="margin-top:10px;">
+    <button type="submit">保存</button>
+  </div>
+</form>
+</body>
+</html>
