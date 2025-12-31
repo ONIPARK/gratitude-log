@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/gratitude")
 public class GratitudeLogController {
 
-    private final GratitudeLogService service;
+    private final GratitudeLogService gratitudeLogService;
 
     public GratitudeLogController(GratitudeLogService service) {
-        this.service = service;
+        this.gratitudeLogService = service;
     }
 
+    // 登録
     @GetMapping("/new")
     public String crateForm(Model model) {
         model.addAttribute("req", new GratitudeLogCreateRequest());
@@ -27,11 +28,18 @@ public class GratitudeLogController {
 
     @PostMapping
     public String create(@ModelAttribute("req") GratitudeLogCreateRequest req, Model model) {
-        Long id = service.create(req);
+        Long id = gratitudeLogService.create(req);
 
         // 保存完了メッセージ + フォーム初期化
         model.addAttribute("saveId", id);
         model.addAttribute("req", new GratitudeLogCreateRequest());
         return "gratitude/create";
+    }
+
+    // リスト
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("items", gratitudeLogService.findAllForList());
+        return "gratitude/list";
     }
 }

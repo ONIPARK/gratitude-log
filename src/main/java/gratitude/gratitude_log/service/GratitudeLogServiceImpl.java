@@ -40,7 +40,7 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
                         GratitudeLogListDto.builder()
                                 .id(l.getId())
                                 .title(l.getTitle())
-                                .createAt(l.getCreatedAt())
+                                .createdAt(l.getCreatedAt())
                                 .build()
                 )
                 .toList();                          // 変換されたものをListで集める

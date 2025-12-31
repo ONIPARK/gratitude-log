@@ -10,8 +10,8 @@
     </insert>
 
     <select id="selectAll" parameterType="gratitude.gratitude_log.domain.GratitudeLog">
-        SELECT id, title, "content", create_at
-        FROM gratitude_lod
+        SELECT id, title, "content", created_at
+        FROM gratitude_log
         ORDER BY id DESC
     </select>
 </mapper>
