@@ -78,4 +78,10 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
             throw new IllegalStateException("存在しないID: " + id);
         }
     }
+
+    @Override
+    public void delete(Long id) {
+        int deleted = gratitudeLogMapper.delete(id);
+        if (deleted == 0) throw new IllegalStateException("存在しないID: " + id);
+    }
 }

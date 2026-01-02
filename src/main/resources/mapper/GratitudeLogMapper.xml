@@ -24,7 +24,12 @@
     <update id="update">
         UPDATE gratitude_log
         SET title = #{req.title},
-            "content" = #{content}
+            "content" = #{req.content}
         WHERE id = #{id}
     </update>
+
+    <delete id="delete">
+        DELETE FROM gratitude_log
+        WHERE id = #{id}
+    </delete>
 </mapper>
