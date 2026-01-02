@@ -1,12 +1,17 @@
 package gratitude.gratitude_log.repository;
 
 import gratitude.gratitude_log.domain.GratitudeLog;
+import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface GratitudeLogMapper {
-    // 登録
+    // Create
     int insert(GratitudeLog log);
-    // リスト
+    // Read
     List<GratitudeLog> selectAll();
+    // Update
+    GratitudeLogEditRequest findForEdit(Long id);
+    int update(@Param("id") Long id, @Param("req") GratitudeLogEditRequest req);
 }

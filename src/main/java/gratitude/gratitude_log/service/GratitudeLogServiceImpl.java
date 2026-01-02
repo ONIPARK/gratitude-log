@@ -2,8 +2,10 @@ package gratitude.gratitude_log.service;
 
 import gratitude.gratitude_log.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
+import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import gratitude.gratitude_log.dto.GratitudeLogListDto;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,13 +14,14 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class GratitudeLogServiceImpl implements GratitudeLogService{
 
     private final GratitudeLogMapper gratitudeLogMapper;
 
-    public GratitudeLogServiceImpl(GratitudeLogMapper gratitudeLogMapper) {
-        this.gratitudeLogMapper = gratitudeLogMapper;
-    }
+//    public GratitudeLogServiceImpl(GratitudeLogMapper gratitudeLogMapper) {
+//        this.gratitudeLogMapper = gratitudeLogMapper;
+//    }
 
     @Override
     public Long create(GratitudeLogCreateRequest req) {
@@ -57,5 +60,22 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
 //            result.add(dto);
 //        }
 //        return result;
+    }
+
+    @Override
+    public GratitudeLogEditRequest findForEdit(Long id) {
+        GratitudeLogEditRequest req = gratitudeLogMapper.findForEdit(id);
+        if (req == null) {
+            throw new IllegalStateException("存在しないID: " + id);
+        }
+        return req;
+    }
+
+    @Override
+    public void update(Long id, GratitudeLogEditRequest req) {
+        int updated = gratitudeLogMapper.update(id, req);
+        if (updated == 0) {
+            throw new IllegalStateException("存在しないID: " + id);
+        }
     }
 }

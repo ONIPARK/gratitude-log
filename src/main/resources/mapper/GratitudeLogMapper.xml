@@ -14,4 +14,17 @@
         FROM gratitude_log
         ORDER BY id DESC
     </select>
+
+    <select id="findForEdit" parameterType="long" resultType="gratitude.gratitude_log.dto.GratitudeLogEditRequest">
+        SELECT title, "content"
+        FROM gratitude_log
+        WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE gratitude_log
+        SET title = #{req.title},
+            "content" = #{content}
+        WHERE id = #{id}
+    </update>
 </mapper>
