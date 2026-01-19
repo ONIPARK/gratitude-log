@@ -74,10 +74,10 @@ public class GratitudeLogController {
     }
 
     //DELETE
-    @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") Long id, RedirectAttributes ra) {
-        gratitudeLogService.delete(id);
-        ra.addFlashAttribute("flashMessage", "削除しました。");
-        return "redirect:/gratitude/list";
-    }
+//    @PostMapping("/{id}/delete")
+//    public String delete(@PathVariable("id") Long id, RedirectAttributes ra) {
+//        gratitudeLogService.delete(id);
+//        ra.addFlashAttribute("flashMessage", "削除しました。");
+//        return "redirect:/gratitude/list";
+//    }
 }

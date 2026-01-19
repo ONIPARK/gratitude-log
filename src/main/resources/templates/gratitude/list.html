@@ -25,9 +25,10 @@
       <form th:action="@{/gratitude/{id}/edit(id=${it.id})}" method="get" style="display:inline;">
           <button type="submit">修正</button>
       </form>
-      <form th:action="@{/gratitude/{id}/delete(id=${it.id})}" method="post" style="display:inline;">
-          <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
-      </form>
+<!--      <form th:action="@{/gratitude/{id}/delete(id=${it.id})}" method="post" style="display:inline;">-->
+<!--          <button type="submit" onclick="return confirm('削除しますか？')">削除</button>-->
+<!--      </form>-->
+      <button type="button" class="btn-delete" th:attr="data-id=${it.id}">削除</button>
     </li>
   </ul>
   <form th:action="@{/gratitude/new}" method="get" style="display:inline;">

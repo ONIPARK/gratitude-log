@@ -4,6 +4,7 @@ import gratitude.gratitude_log.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import gratitude.gratitude_log.dto.GratitudeLogListDto;
+import gratitude.gratitude_log.exception.GratitudeLogNotFoundException;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,12 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
     @Override
     public void delete(Long id) {
         int deleted = gratitudeLogMapper.delete(id);
-        if (deleted == 0) throw new IllegalStateException("存在しないID: " + id);
+        // MVC 対応
+        //if (deleted == 0) throw new IllegalStateException("存在しないID: " + id);
+        // API 対応
+        if (deleted == 0) {
+            throw new GratitudeLogNotFoundException(id);
+        }
+
     }
 }
