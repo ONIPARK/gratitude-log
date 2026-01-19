@@ -72,10 +72,10 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
     }
 
     @Override
-    public void update(Long id, GratitudeLogEditRequest req) {
-        int updated = gratitudeLogMapper.update(id, req);
+    public void update(GratitudeLogEditRequest req) {
+        int updated = gratitudeLogMapper.update(req);
         if (updated == 0) {
-            throw new IllegalStateException("存在しないID: " + id);
+            throw new IllegalStateException("存在しないID: " + req.getId());
         }
     }
 

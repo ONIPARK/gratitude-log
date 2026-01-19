@@ -49,8 +49,8 @@ public class FakeGratitudeLogMapper implements GratitudeLogMapper {
     }
 
     @Override
-    public int update(Long id, GratitudeLogEditRequest req) {
-        GratitudeLog log = store.get(id);
+    public int update(GratitudeLogEditRequest req) {
+        GratitudeLog log = store.get(req.getId());
         log.setTitle(req.getTitle());
         log.setContent(req.getContent());
         return 1;

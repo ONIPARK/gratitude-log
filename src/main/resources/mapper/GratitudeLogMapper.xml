@@ -23,8 +23,8 @@
 
     <update id="update">
         UPDATE gratitude_log
-        SET title = #{req.title},
-            "content" = #{req.content}
+        SET title = #{title},
+            "content" = #{content}
         WHERE id = #{id}
     </update>
 

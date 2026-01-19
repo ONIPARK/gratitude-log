@@ -13,7 +13,7 @@ public interface GratitudeLogService {
     List<GratitudeLogListDto> findAllForList();
 
     GratitudeLogEditRequest findForEdit(Long id);
-    void update(Long id, GratitudeLogEditRequest req);
+    void update(GratitudeLogEditRequest req);
 
     void delete(Long id);
 }

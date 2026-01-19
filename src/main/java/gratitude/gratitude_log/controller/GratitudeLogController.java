@@ -57,7 +57,8 @@ public class GratitudeLogController {
     public String edit(@PathVariable("id") Long id,
                        @ModelAttribute("req")GratitudeLogEditRequest req,
                        RedirectAttributes ra) {
-        gratitudeLogService.update(id, req);
+        req.setId(id);
+        gratitudeLogService.update(req);
         ra.addFlashAttribute("flashMessage", "修正しました。");
         return "redirect:/gratitude/list";
     }

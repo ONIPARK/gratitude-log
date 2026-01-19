@@ -13,7 +13,9 @@ public interface GratitudeLogMapper {
     List<GratitudeLog> selectAll();
     // Update
     GratitudeLogEditRequest findForEdit(Long id);
-    int update(@Param("id") Long id, @Param("req") GratitudeLogEditRequest req);
+    //int update(@Param("id") Long id, @Param("req") GratitudeLogEditRequest req);
+    int update(GratitudeLogEditRequest req);
+
     // Delete
     int delete(@Param("id") Long id);
 }
