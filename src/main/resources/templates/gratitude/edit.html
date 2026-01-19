@@ -10,12 +10,18 @@
 <form th:action="@{/gratitude/{id}/edit(id=${id})}" method="post" th:object="${req}">
   <div>
     <label>タイトル</label><br/>
-    <input th:field="*{title}" required maxlength="200"/>
+    <label>
+      <input th:field="*{title}" required maxlength="200"/>
+      <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+    </label>
   </div>
 
   <div style="margin-top:10px;">
     <label>内容</label><br/>
-    <textarea th:field="*{content}" required rows="10" cols="60"></textarea>
+    <label>
+      <textarea th:field="*{content}" required rows="10" cols="60"></textarea>
+      <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+    </label>
   </div>
 
   <div style="margin-top:10px;">

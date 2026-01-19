@@ -3,9 +3,11 @@ package gratitude.gratitude_log.controller;
 import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import gratitude.gratitude_log.service.GratitudeLogService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,9 +57,17 @@ public class GratitudeLogController {
     // 2) 修正処理
     @PostMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id,
-                       @ModelAttribute("req")GratitudeLogEditRequest req,
+                       @Valid @ModelAttribute("req")GratitudeLogEditRequest req,
+                       BindingResult bindingResult,
                        RedirectAttributes ra) {
+
         req.setId(id);
+
+        //
+        if (bindingResult.hasErrors()) {
+            return "gratitude/edit";
+        }
+
         gratitudeLogService.update(req);
         ra.addFlashAttribute("flashMessage", "修正しました。");
         return "redirect:/gratitude/list";
