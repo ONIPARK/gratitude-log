@@ -1,4 +1,4 @@
-package gratitude.gratitude_log.domain;
+package gratitude.domain;
 
 import lombok.*;
 

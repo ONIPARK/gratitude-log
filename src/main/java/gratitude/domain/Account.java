@@ -1,14 +1,13 @@
-package gratitude.gratitude_log.domain;
+package gratitude.domain;
 
 import lombok.*;
-import org.apache.ibatis.mapping.FetchType;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import java.time.LocalDateTime;
-
-@Getter @Setter
-@EqualsAndHashCode(of = "id")
-@Builder  @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+//@EqualsAndHashCode(of = "id")
+@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Account {
 
 //    private Long id;

@@ -1,4 +1,4 @@
-package gratitude.gratitude_log;
+package gratitude;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;

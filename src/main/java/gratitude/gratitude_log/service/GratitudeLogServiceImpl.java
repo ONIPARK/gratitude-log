@@ -1,6 +1,6 @@
 package gratitude.gratitude_log.service;
 
-import gratitude.gratitude_log.domain.GratitudeLog;
+import gratitude.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import gratitude.gratitude_log.dto.GratitudeLogListDto;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

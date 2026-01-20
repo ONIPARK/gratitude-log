@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/gratitude")
+//RequestMapping("/gratitude")
 public class GratitudeLogController {
 
     private final GratitudeLogService gratitudeLogService;

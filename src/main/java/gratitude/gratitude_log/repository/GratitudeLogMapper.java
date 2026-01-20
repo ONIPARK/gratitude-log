@@ -1,6 +1,6 @@
 package gratitude.gratitude_log.repository;
 
-import gratitude.gratitude_log.domain.GratitudeLog;
+import gratitude.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import org.apache.ibatis.annotations.Param;
 
