@@ -17,8 +17,12 @@ public class GratitudeLogApiController {
     private final GratitudeLogService service;
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.ok(new ApiResponse(true, "削除されました。"));
     }
+
+
+
+
 }

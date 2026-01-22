@@ -1,12 +1,12 @@
 document.addEventListener("click", async function(e){
     //
-    if (!e.target.classList.contains("dtn-delete")) return;
+    if (!e.target.classList.contains("btn-delete")) return;
 
     const id = e.target.dataset.id;
     if (!confirm("削除しますか？")) return;
 
     try {
-        const res = await fetch(`api/gratitude/${id}`, {
+        const res = await fetch(`/api/gratitude/${id}`, {
             method: "DELETE",
             headers: { "Accept" : "application/json" }
         });
