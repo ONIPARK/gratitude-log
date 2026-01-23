@@ -4,6 +4,7 @@ import gratitude.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import gratitude.gratitude_log.dto.GratitudeLogListDto;
+import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
 import gratitude.gratitude_log.exception.GratitudeLogNotFoundException;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,7 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
                         GratitudeLogListDto.builder()
                                 .id(l.getId())
                                 .title(l.getTitle())
+                                .content(l.getContent())
                                 .createdAt(l.getCreatedAt())
                                 .build()
                 )
@@ -89,5 +91,13 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
             throw new GratitudeLogNotFoundException(id);
         }
 
+    }
+
+    @Override
+    public List<GratitudeLogListDto> findAll(GratitudeLogSearchCond cond) {
+        // keyword trim
+        if (cond.getKeyword() != null) cond.setKeyword(cond.getKeyword().trim());
+
+        return gratitudeLogMapper.findAll(cond);
     }
 }

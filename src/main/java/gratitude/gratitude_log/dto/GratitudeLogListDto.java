@@ -11,5 +11,6 @@ import java.time.LocalDateTime;
 public class GratitudeLogListDto {
     private Long id;
     private String title;
+    private String content;
     private LocalDateTime createdAt;
 }

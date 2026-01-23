@@ -2,6 +2,8 @@ package gratitude.gratitude_log.service;
 
 import gratitude.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
+import gratitude.gratitude_log.dto.GratitudeLogListDto;
+import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
 
 import java.time.LocalDateTime;
@@ -59,5 +61,10 @@ public class FakeGratitudeLogMapper implements GratitudeLogMapper {
     @Override
     public int delete(Long id) {
         return store.remove(id) != null ? 1 : 0;
+    }
+
+    @Override
+    public List<GratitudeLogListDto> findAll(GratitudeLogSearchCond cond) {
+        return List.of();
     }
 }

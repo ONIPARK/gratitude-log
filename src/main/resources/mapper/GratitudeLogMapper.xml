@@ -32,4 +32,27 @@
         DELETE FROM gratitude_log
         WHERE id = #{id}
     </delete>
+
+    <select id="findAll" parameterType="gratitude.gratitude_log.dto.GratitudeLogSearchCond" resultType="gratitude.domain.GratitudeLog">
+        SELECT id, title, "content", create_at
+        FROM gratitude_log
+
+        <!-- 検索キーワードがある場合 -->
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (title ILIKE '%' || #{keyword} || '%'
+                OR "content" ILIKE '%' || #{keyword} || '%')
+            </if>
+        </where>
+
+        <!-- 整列条件 -->
+        <choose>
+            <when test="sort == 'oldest'">
+                ORDER BY create_at ASC
+            </when>
+            <otherwise>
+                ORDER BY create_at DESC
+            </otherwise>
+        </choose>
+    </select>
 </mapper>
