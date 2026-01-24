@@ -96,7 +96,10 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
     @Override
     public List<GratitudeLogListDto> findAll(GratitudeLogSearchCond cond) {
         // keyword trim
-        if (cond.getKeyword() != null) cond.setKeyword(cond.getKeyword().trim());
+        if (cond.getKeyword() != null) {
+            String k = cond.getKeyword().trim();
+            cond.setKeyword(k.isEmpty() ? null : k);
+        }
 
         return gratitudeLogMapper.findAll(cond);
     }
