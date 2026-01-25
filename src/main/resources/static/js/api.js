@@ -57,26 +57,40 @@ document.addEventListener("click", async function(e){
 
 //
 function renderList(items, container) {
-    if (items.length === 0) {
-        container.innerHTML = '<li>投稿された記事がありません。</li>'
-        return;
-    }
-    container.innerHTML = items.map(it => `
-        <li>
-            <strong>${escapeHtml(it.title)}</strong>
-            <span>${escapeHtml(it.content ?? '')}</span>
-            <small>${formatDate(it.createdAt)}</small>
-            <a href="/gratitude/${it.id}/edit" class="btn-edit">修正</a>
-            <button class="btn-delete" data-id="${it.id}">削除</button>
-        </li>
-    `).join('');
+  if (!Array.isArray(items)) items = [];
+
+  if (items.length === 0) {
+    container.innerHTML = '<li class="empty">投稿された記事はありません。</li>';
+    return;
+  }
+
+  container.innerHTML = items.map(it => `
+    <li class="card">
+      <div class="card-body">
+        <strong class="title">${escapeHtml(it.title)}</strong>
+        <p class="content">${escapeHtml(it.content ?? '')}</p>
+      </div>
+
+      <div class="card-footer">
+        <small class="date">${formatDate(it.createdAt)}</small>
+
+        <div class="actions">
+          <a href="/gratitude/${it.id}/edit" class="pill link-pill">修正</a>
+          <button type="button" class="pill btn-delete" data-id="${it.id}">削除</button>
+        </div>
+      </div>
+    </li>
+  `).join('');
 }
 
 // 日付生成関数
 function formatDate(dateStr) {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  if(!dateStr) return '';
+  const d = new Date(dateStr);
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}.${m}.${day}`;
 }
 
 // HTML 文字エスケープ

@@ -68,7 +68,6 @@
                         <small class="date" th:text="${#temporals.format(it.createdAt, 'yyyy.MM.dd')}"></small>
 
                         <div class="actions">
-                            <!-- 원래대로 "폼 버튼" 유지 -->
                             <form th:action="@{/gratitude/{id}/edit(id=${it.id})}" method="get">
                                 <button type="submit" class="pill">修正</button>
                             </form>
