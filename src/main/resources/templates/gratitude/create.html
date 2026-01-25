@@ -2,25 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>感謝日誌</title>
+  <title>感謝日誌 - 作成</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>感謝日誌</h1>
+<div class="layout">
 
-<form th:action="@{/gratitude}" method="post" th:object="${req}">
-  <div>
-    <label>タイトル</label><br/>
-    <input th:field="*{title}" required maxlength="200"/>
-  </div>
+  <aside class="sidebar">
+    <div class="brand">Gratitude</div>
 
-  <div style="margin-top:10px;">
-    <label>内容</label><br/>
-    <textarea th:field="*{content}" required rows="10" cols="60"></textarea>
-  </div>
+    <nav class="menu">
+      <a class="menu-link" th:href="@{/}">
+        <span class="icon">🏠</span><span class="label">ホーム</span>
+      </a>
+    </nav>
+  </aside>
 
-  <div style="margin-top:10px;">
-    <button type="submit">保存</button>
-  </div>
-</form>
+  <main class="main">
+    <section class="form-card">
+      <form th:action="@{/gratitude}" method="post" th:object="${req}" class="form-rows">
+
+        <div class="row">
+          <label class="lbl" for="title">タイトル</label>
+          <input id="title" class="inp" th:field="*{title}" required maxlength="200"/>
+        </div>
+
+        <div class="row row-textarea">
+          <label class="lbl" for="content">内容</label>
+          <textarea id="content" class="ta" th:field="*{content}" required></textarea>
+        </div>
+
+        <div class="actions-row">
+          <button type="submit" class="btn-save">保存</button>
+        </div>
+
+      </form>
+    </section>
+  </main>
+
+</div>
 </body>
 </html>

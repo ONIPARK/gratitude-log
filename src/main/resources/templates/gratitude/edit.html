@@ -2,31 +2,73 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>感謝日誌</title>
+  <title>感謝日誌 - 修正</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>感謝日誌</h1>
+<div class="layout">
 
-<form th:action="@{/gratitude/{id}/edit(id=${id})}" method="post" th:object="${req}">
-  <div>
-    <label>タイトル</label><br/>
-    <label>
-      <input th:field="*{title}" required maxlength="200"/>
-      <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
-    </label>
-  </div>
+  <!-- 左サイドバー -->
+  <aside class="sidebar">
+    <div class="brand">Gratitude</div>
 
-  <div style="margin-top:10px;">
-    <label>内容</label><br/>
-    <label>
-      <textarea th:field="*{content}" required rows="10" cols="60"></textarea>
-      <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
-    </label>
-  </div>
+    <nav class="menu">
+      <a class="menu-link" th:href="@{/}">
+        <span class="icon">🏠</span><span class="label">ホーム</span>
+      </a>
 
-  <div style="margin-top:10px;">
-    <button type="submit">保存</button>
-  </div>
-</form>
+      <!-- 作成 -->
+      <div class="menu-block">
+        <form th:action="@{/gratitude/new}" method="get" class="menu-link">
+          <span class="icon">📝</span>
+          <button type="submit" class="link-btn"><span class="label">作成</span></button>
+        </form>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- 右コンテンツ -->
+  <main class="main">
+
+    <section class="form-card">
+      <form th:action="@{/gratitude/{id}/edit(id=${id})}"
+            method="post"
+            th:object="${req}"
+            class="form-rows">
+
+        <!-- タイトル -->
+        <div class="row">
+          <label class="lbl" for="title">タイトル</label>
+
+          <div>
+            <input id="title" class="inp" th:field="*{title}" required maxlength="200"/>
+            <p class="field-error"
+               th:if="${#fields.hasErrors('title')}"
+               th:errors="*{title}"></p>
+          </div>
+        </div>
+
+        <!-- 内容 -->
+        <div class="row row-textarea">
+          <label class="lbl" for="content">内容</label>
+
+          <div>
+            <textarea id="content" class="ta" th:field="*{content}" required></textarea>
+            <p class="field-error"
+               th:if="${#fields.hasErrors('content')}"
+               th:errors="*{content}"></p>
+          </div>
+        </div>
+
+        <!-- 保存ボタン -->
+        <div class="actions-row">
+          <button type="submit" class="btn-save">保存</button>
+        </div>
+
+      </form>
+    </section>
+  </main>
+
+</div>
 </body>
 </html>

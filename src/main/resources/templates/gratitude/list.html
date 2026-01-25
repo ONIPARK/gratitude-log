@@ -2,64 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Title</title>
 </head>
 <body>
-  <h1>感謝リスト</h1>
-  <!-- Toast -->
-  <div id="toast"
-       th:if="${flashMessage != null}"
-       th:data-msg="${flashMessage}"
-       style="position:fixed; top:16px; right:16px;
-            padding:12px 14px; border:1px solid #333; border-radius:10px;
-            background:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.15);
-            opacity:0; transform:translateY(-10px);
-            transition:opacity .25s ease, transform .25s ease;
-            z-index:9999;">
-  </div>
-  <ul>
-    <li th:if="${#lists.isEmpty(items)}">投稿された記事はありません。</li>
-    <li th:each="it : ${items}">
-      <strong th:text="${it.title}"></strong>
-        <span th:text="${it.content}"></span>
-      <small th:text="${#temporals.format(it.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
-      <form th:action="@{/gratitude/{id}/edit(id=${it.id})}" method="get" style="display:inline;">
-          <button type="submit">修正</button>
-      </form>
-<!--      <form th:action="@{/gratitude/{id}/delete(id=${it.id})}" method="post" style="display:inline;">-->
-<!--          <button type="submit" onclick="return confirm('削除しますか？')">削除</button>-->
-<!--      </form>-->
-      <button type="button" class="btn-delete" th:attr="data-id=${it.id}">削除</button>
-    </li>
-  </ul>
-  <form th:action="@{/gratitude/new}" method="get" style="display:inline;">
-      <button type="submit">作成</button>
-  </form>
+    <div class="layout">
 
-  <script>
-      (function () {
-        const toast = document.getElementById('toast');
-        if (!toast) return;
+        <!-- 左サイドバー -->
+        <aside class="sidebar">
+            <div class="brand">Gratitude</div>
 
-        // メッセージ注入
-        const msg = toast.dataset.msg || '';
-        toast.textContent = msg;
+            <nav class="menu">
+                <a class="menu-link" th:href="@{/}">
+                    <span class="icon">🏠</span><span class="label">ホーム</span>
+                </a>
 
-        // 表す
-        requestAnimationFrame(() => {
-          toast.style.opacity = '1';
-          toast.style.transform = 'translateY(0)';
-        });
-        // 2.5秒後、消える
-        setTimeout(() => {
-          toast.style.opacity = '0';
-          toast.style.transform = 'translateY(-10px)';
-          // DOMから削除
-          setTimeout(() => toast.remove(), 300);
-            }, 2500);
-          })();
-  </script>
-  <script th:src="@{/js/api.js}"></script>
+                <!-- 検索 섹션 -->
+                <div class="menu-block">
+                    <div class="menu-link is-static">
+                        <span class="icon">🔍</span><span class="label">検索</span>
+                    </div>
 
+                    <div class="search-mini">
+                        <input type="text" id="searchKeyword" placeholder="検索キーワードを入力">
+                        <div class="search-row">
+                            <select id="sortOrder">
+                                <option value="latest">最新順</option>
+                                <option value="oldest">古い順</option>
+                            </select>
+                            <button type="button" id="btn-search">検索</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 作成 -->
+                <div class="menu-block">
+                    <form th:action="@{/gratitude/new}" method="get" class="menu-link">
+                        <span class="icon">📝</span>
+                        <button type="submit" class="link-btn"><span class="label">作成</span></button>
+                    </form>
+                </div>
+
+            </nav>
+        </aside>
+
+        <!-- 右コンテンツ -->
+        <main class="main">
+            <!-- Toast -->
+            <div id="toast"
+                 th:if="${flashMessage != null}"
+                 th:data-msg="${flashMessage}"
+                 class="toast">
+            </div>
+
+            <ul id="itemList" class="feed">
+                <li th:if="${#lists.isEmpty(items)}" class="empty">投稿された記事はありません。</li>
+
+                <li th:each="it : ${items}" class="card">
+                    <div class="card-body">
+                        <strong class="title" th:text="${it.title}"></strong>
+                        <p class="content" th:text="${it.content}"></p>
+                    </div>
+
+                    <div class="card-footer">
+                        <small class="date" th:text="${#temporals.format(it.createdAt, 'yyyy.MM.dd')}"></small>
+
+                        <div class="actions">
+                            <!-- 원래대로 "폼 버튼" 유지 -->
+                            <form th:action="@{/gratitude/{id}/edit(id=${it.id})}" method="get">
+                                <button type="submit" class="pill">修正</button>
+                            </form>
+
+                            <button type="button" class="pill btn-delete" th:attr="data-id=${it.id}">削除</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </main>
+
+    </div>
+
+<script>
+    (function () {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+
+      const msg = toast.dataset.msg || '';
+      toast.textContent = msg;
+
+      requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+      });
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    })();
+</script>
+
+<script th:src="@{/js/api.js}"></script>
 </body>
+
     </html>
