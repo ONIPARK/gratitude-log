@@ -34,7 +34,7 @@
     </delete>
 
     <select id="findAll" parameterType="gratitude.gratitude_log.dto.GratitudeLogSearchCond" resultType="gratitude.domain.GratitudeLog">
-        SELECT id, title, "content", create_at
+        SELECT id, title, "content", created_at
         FROM gratitude_log
 
         <!-- 検索キーワードがある場合 -->
@@ -48,10 +48,10 @@
         <!-- 整列条件 -->
         <choose>
             <when test="sort == 'oldest'">
-                ORDER BY create_at ASC
+                ORDER BY created_at ASC
             </when>
             <otherwise>
-                ORDER BY create_at DESC
+                ORDER BY created_at DESC
             </otherwise>
         </choose>
     </select>

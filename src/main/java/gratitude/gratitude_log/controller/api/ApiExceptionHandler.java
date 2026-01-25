@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(GratitudeLogNotFoundException.class)
-    public ResponseEntity<ApiResponse> handleNotFound(GratitudeLogNotFoundException e) {
-        return ResponseEntity.status(404).body(new ApiResponse(false, e.getMessage()));
+    public ResponseEntity<ApiResponse<Void>> handleNotFound(GratitudeLogNotFoundException e) {
+        return ResponseEntity.status(404).body(new ApiResponse<>(false, e.getMessage(), null));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse> handleAny(Exception e) {
-        return ResponseEntity.status(500).body(new ApiResponse(false, "サーバーエラーが発生しました。"));
+    public ResponseEntity<ApiResponse<Void>> handleAny(Exception e) {
+        return ResponseEntity.status(500).body(new ApiResponse<>(false, "サーバーエラーが発生しました。", null));
     }
 }

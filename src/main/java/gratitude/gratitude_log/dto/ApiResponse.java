@@ -1,6 +1,15 @@
 package gratitude.gratitude_log.dto;
 
-public record ApiResponse(boolean success, String message) {}
+public record ApiResponse<T> (boolean success, String message, T data) {
+
+    public static <T> ApiResponse<T> ok(T data) {
+        return new ApiResponse<>(true, "", data);
+    }
+
+    public static <T> ApiResponse<T> fail(String message) {
+        return new ApiResponse<>(false, message, null);
+    }
+}
 
 //public final class ApiResponse {
 //    private final boolean success;
