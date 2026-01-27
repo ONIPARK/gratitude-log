@@ -12,12 +12,13 @@ public interface GratitudeLogService {
 
     Long create(GratitudeLogCreateRequest req);
 
-    List<GratitudeLogListDto> findAllForList();
+    //List<GratitudeLogListDto> findAllForList();
 
     GratitudeLogEditRequest findForEdit(Long id);
     void update(GratitudeLogEditRequest req);
 
     void delete(Long id);
 
+    List<GratitudeLogListDto> findAll();
     List<GratitudeLogListDto> findAll(GratitudeLogSearchCond cond);
 }

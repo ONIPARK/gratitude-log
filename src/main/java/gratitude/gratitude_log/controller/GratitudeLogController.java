@@ -2,6 +2,7 @@ package gratitude.gratitude_log.controller;
 
 import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
+import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
 import gratitude.gratitude_log.service.GratitudeLogService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class GratitudeLogController {
     // READ
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("items", gratitudeLogService.findAllForList());
+        model.addAttribute("items", gratitudeLogService.findAll());
         return "gratitude/list";
     }
 

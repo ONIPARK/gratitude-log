@@ -35,20 +35,20 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
         return log.getId();
     }
 
-    @Override
-    public List<GratitudeLogListDto> findAllForList() {
-        List<GratitudeLog> logs = gratitudeLogMapper.selectAll();
-
-        return logs.stream()                        // logsをひとつづつ取り出す準備(stream 生成)
-                .map(l ->               // 各要素 l(GratitudeLog)をDTOに変換
-                        GratitudeLogListDto.builder()
-                                .id(l.getId())
-                                .title(l.getTitle())
-                                .content(l.getContent())
-                                .createdAt(l.getCreatedAt())
-                                .build()
-                )
-                .toList();                          // 変換されたものをListで集める
+//    @Override
+//    public List<GratitudeLogListDto> findAllForList() {
+//        List<GratitudeLog> logs = gratitudeLogMapper.selectAll();
+//
+//        return logs.stream()                        // logsをひとつづつ取り出す準備(stream 生成)
+//                .map(l ->               // 各要素 l(GratitudeLog)をDTOに変換
+//                        GratitudeLogListDto.builder()
+//                                .id(l.getId())
+//                                .title(l.getTitle())
+//                                .content(l.getContent())
+//                                .createdAt(l.getCreatedAt())
+//                                .build()
+//                )
+//                .toList();                          // 変換されたものをListで集める
 
 
 //        List<GratitudeLogListDto> result = new ArrayList<>();
@@ -62,7 +62,7 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
 //            result.add(dto);
 //        }
 //        return result;
-    }
+//    }
 
     @Override
     public GratitudeLogEditRequest findForEdit(Long id) {
@@ -84,13 +84,17 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
     @Override
     public void delete(Long id) {
         int deleted = gratitudeLogMapper.delete(id);
-        // MVC 対応
         //if (deleted == 0) throw new IllegalStateException("存在しないID: " + id);
         // API 対応
         if (deleted == 0) {
             throw new GratitudeLogNotFoundException(id);
         }
 
+    }
+
+    @Override
+    public List<GratitudeLogListDto> findAll() {
+        return findAll(new GratitudeLogSearchCond());
     }
 
     @Override
