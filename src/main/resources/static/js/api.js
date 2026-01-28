@@ -1,5 +1,28 @@
-document.addEventListener("click", async function(e){
+//disabled submit button
+document.querySelector("#createForm").addEventListener("submit", async function(e){
+    e.preventDefault(); // ページ遷移 防止
 
+    const title = document.querySelector("#title").value.trim();
+    const content = document.querySelector("#content").value.trim();
+
+    const payload = { title, content };
+
+    const res = await fetch("/api/gratitude", {
+        method: "POST",
+        headers: { "Content-Type" : "application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+        alert("作成が失敗しました。");
+        return;
+    }
+
+    location.href = "/list";
+
+});
+
+document.addEventListener("click", async function(e){
     // delete API
     if (e.target.classList.contains("btn-delete")) {
         const id = e.target.dataset.id;
@@ -46,7 +69,8 @@ document.addEventListener("click", async function(e){
                     return;
                 }
 
-                renderList(body?.data ?? [], itemList);
+                renderList(Array.isArray(body) ? body : (body?.data ?? []), itemList);
+                //renderList(body?.data ?? [], itemList);
 
             } catch (err) {
                 console.error('検索エラー：', err)
