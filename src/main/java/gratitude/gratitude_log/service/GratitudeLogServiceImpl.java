@@ -5,8 +5,10 @@ import gratitude.gratitude_log.dto.*;
 import gratitude.gratitude_log.exception.GratitudeLogNotFoundException;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -75,6 +77,8 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
         GratitudeLog log = gratitudeLogMapper.findForEdit(id);
 
         if (log == null) {
+
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "存在しないIDです。" + id);
             throw new GratitudeLogNotFoundException(id);
         }
         return new GratitudeLogEditResponse(
