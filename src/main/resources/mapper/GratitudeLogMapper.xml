@@ -15,8 +15,8 @@
         ORDER BY id DESC
     </select>
 
-    <select id="findForEdit" parameterType="long" resultType="gratitude.gratitude_log.dto.GratitudeLogEditRequest">
-        SELECT title, "content"
+    <select id="findForEdit" parameterType="long" resultType="gratitude.domain.GratitudeLog">
+        SELECT id, title, "content"
         FROM gratitude_log
         WHERE id = #{id}
     </select>

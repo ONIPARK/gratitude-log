@@ -1,10 +1,7 @@
 package gratitude.gratitude_log.service;
 
 import gratitude.domain.GratitudeLog;
-import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
-import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
-import gratitude.gratitude_log.dto.GratitudeLogListDto;
-import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
+import gratitude.gratitude_log.dto.*;
 
 import java.util.List;
 
@@ -14,7 +11,7 @@ public interface GratitudeLogService {
 
     //List<GratitudeLogListDto> findAllForList();
 
-    GratitudeLogEditRequest findForEdit(Long id);
+    GratitudeLogEditResponse findForEdit(Long id);
     void update(GratitudeLogEditRequest req);
 
     void delete(Long id);

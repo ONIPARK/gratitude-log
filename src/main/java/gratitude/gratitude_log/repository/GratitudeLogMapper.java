@@ -2,6 +2,7 @@ package gratitude.gratitude_log.repository;
 
 import gratitude.domain.GratitudeLog;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
+import gratitude.gratitude_log.dto.GratitudeLogEditResponse;
 import gratitude.gratitude_log.dto.GratitudeLogListDto;
 import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +17,7 @@ public interface GratitudeLogMapper {
     List<GratitudeLog> selectAll();
 
     // Update
-    GratitudeLogEditRequest findForEdit(Long id);
+    GratitudeLog findForEdit(Long id);
     //int update(@Param("id") Long id, @Param("req") GratitudeLogEditRequest req);
     int update(GratitudeLogEditRequest req);
 

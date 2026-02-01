@@ -1,10 +1,7 @@
 package gratitude.gratitude_log.service;
 
 import gratitude.domain.GratitudeLog;
-import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
-import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
-import gratitude.gratitude_log.dto.GratitudeLogListDto;
-import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
+import gratitude.gratitude_log.dto.*;
 import gratitude.gratitude_log.exception.GratitudeLogNotFoundException;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +67,7 @@ public class GratitudeLogServiceTest {
         when(mapper.selectAll()).thenReturn(List.of(g1, g2));
 
         // when
-        List<GratitudeLogListDto> result = service.findAllForList();
+        List<GratitudeLogListDto> result = service.findAll();
 
         // then
         assertThat(result).hasSize(2);
@@ -102,18 +99,20 @@ public class GratitudeLogServiceTest {
     @Test
     void findForEdit_returns_request_when_found() {
         // given
-        GratitudeLogEditRequest edit = new GratitudeLogEditRequest();
-        edit.setTitle("editTitle");
-        edit.setContent("editContent");
+        GratitudeLog log = new GratitudeLog();
+        log.setId(1L);
+        log.setTitle("editTitle");
+        log.setContent("editContent");
 
-        when(mapper.findForEdit(1L)).thenReturn(edit);
+        when(mapper.findForEdit(1L)).thenReturn(log);
 
         // when
-        GratitudeLogEditRequest result = service.findForEdit(1L);
+        GratitudeLogEditResponse result = service.findForEdit(1L);
 
         // then
-        assertThat(result.getTitle()).isEqualTo("editTitle");
-        assertThat(result.getContent()).isEqualTo("editContent");
+        assertThat(result.id()).isEqualTo(1L);
+        assertThat(result.title()).isEqualTo("editTitle");
+        assertThat(result.content()).isEqualTo("editContent");
         verify(mapper, times(1)).findForEdit(1L);
     }
 

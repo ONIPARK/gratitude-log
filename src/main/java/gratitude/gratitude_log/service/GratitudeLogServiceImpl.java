@@ -1,10 +1,7 @@
 package gratitude.gratitude_log.service;
 
 import gratitude.domain.GratitudeLog;
-import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
-import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
-import gratitude.gratitude_log.dto.GratitudeLogListDto;
-import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
+import gratitude.gratitude_log.dto.*;
 import gratitude.gratitude_log.exception.GratitudeLogNotFoundException;
 import gratitude.gratitude_log.repository.GratitudeLogMapper;
 import lombok.RequiredArgsConstructor;
@@ -64,20 +61,34 @@ public class GratitudeLogServiceImpl implements GratitudeLogService{
 //        return result;
 //    }
 
+//    @Override
+//    public GratitudeLogEditRequest findForEdit(Long id) {
+//        GratitudeLogEditRequest req = gratitudeLogMapper.findForEdit(id);
+//        if (req == null) {
+//            throw new IllegalStateException("存在しないID: " + id);
+//        }
+//        return req;
+//    }
+
     @Override
-    public GratitudeLogEditRequest findForEdit(Long id) {
-        GratitudeLogEditRequest req = gratitudeLogMapper.findForEdit(id);
-        if (req == null) {
-            throw new IllegalStateException("存在しないID: " + id);
+    public GratitudeLogEditResponse findForEdit(Long id) {
+        GratitudeLog log = gratitudeLogMapper.findForEdit(id);
+
+        if (log == null) {
+            throw new GratitudeLogNotFoundException(id);
         }
-        return req;
+        return new GratitudeLogEditResponse(
+                log.getId(),
+                log.getTitle(),
+                log.getContent()
+        );
     }
 
     @Override
     public void update(GratitudeLogEditRequest req) {
         int updated = gratitudeLogMapper.update(req);
         if (updated == 0) {
-            throw new IllegalStateException("存在しないID: " + req.getId());
+            throw new GratitudeLogNotFoundException(req.getId());
         }
     }
 

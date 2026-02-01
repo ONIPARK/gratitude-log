@@ -51,6 +51,7 @@ public class GratitudeLogController {
     // 1) 修正画面
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable("id") Long id, Model model) {
+        System.out.println("수정 폼 요청 진입! ID: " + id);
         model.addAttribute("req", gratitudeLogService.findForEdit(id));
         model.addAttribute("id", id);
         return "gratitude/edit";
