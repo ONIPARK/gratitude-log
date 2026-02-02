@@ -27,7 +27,13 @@ public class GratitudeLogController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("req") GratitudeLogCreateRequest req, RedirectAttributes ra) {
+    public String create(@Valid @ModelAttribute("req") GratitudeLogCreateRequest req,
+                         BindingResult bindingResult,
+                         RedirectAttributes ra
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "gratitude/create";
+        }
         Long id = gratitudeLogService.create(req);
 
         // 保存完了メッセージ + フォーム初期化
@@ -36,7 +42,6 @@ public class GratitudeLogController {
 
         // redirect後、1回だけ転送される
         ra.addFlashAttribute("flashMessage", "保存されました。");
-
         return "redirect:/gratitude/list";
     }
 
@@ -51,7 +56,6 @@ public class GratitudeLogController {
     // 1) 修正画面
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable("id") Long id, Model model) {
-        System.out.println("수정 폼 요청 진입! ID: " + id);
         model.addAttribute("req", gratitudeLogService.findForEdit(id));
         model.addAttribute("id", id);
         return "gratitude/edit";

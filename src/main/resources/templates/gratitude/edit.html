@@ -56,7 +56,9 @@
             <textarea id="content" class="ta" th:field="*{content}" required></textarea>
             <p class="field-error"
                th:if="${#fields.hasErrors('content')}"
-               th:errors="*{content}"></p>
+               th:errors="*{content}">
+
+            </p>
           </div>
         </div>
 

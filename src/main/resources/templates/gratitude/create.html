@@ -19,17 +19,32 @@
   </aside>
 
   <main class="main">
+
     <section class="form-card">
       <form th:action="@{/gratitude}" method="post" th:object="${req}" class="form-rows">
 
         <div class="row">
           <label class="lbl" for="title">タイトル</label>
-          <input id="title" class="inp" th:field="*{title}" required maxlength="200"/>
+          <div>
+            <input id="title" class="inp" th:field="*{title}" required maxlength="200"/>
+            <p class="field-error"
+               th:if="${#fields.hasErrors('title')}"
+               th:errors="*{title}">
+
+            </p>
+          </div>
         </div>
 
         <div class="row row-textarea">
           <label class="lbl" for="content">内容</label>
-          <textarea id="content" class="ta" th:field="*{content}" required></textarea>
+
+          <div>
+            <textarea id="content" class="ta" th:field="*{content}" required></textarea>
+            <p class="field-error"
+               th:if="${#fields.hasErrors('content')}"
+               th:errors="*{content}">
+            </p>
+          </div>
         </div>
 
         <div class="actions-row">

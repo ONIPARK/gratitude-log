@@ -21,7 +21,7 @@ public class GratitudeLogApiController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
-    public GratitudeLogCreateResponse create(@RequestBody GratitudeLogCreateRequest req) {
+    public GratitudeLogCreateResponse create(@Valid @RequestBody GratitudeLogCreateRequest req) {
         Long id = service.create(req);
         return new GratitudeLogCreateResponse(id);
     }
