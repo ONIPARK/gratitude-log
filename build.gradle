@@ -35,10 +35,10 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql:42.7.8'
 
 	// ログイン/権限
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// アドレス認証/パスワード検索
-	// implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	testImplementation 'org.mockito:mockito-inline:4.5.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

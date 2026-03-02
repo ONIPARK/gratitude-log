@@ -1,0 +1,57 @@
+<!-- templates/account/login.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <!-- ✅ static/css/login.css -->
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<div class="wrap">
+    <h1>ログイン</h1>
+
+    <!-- ログイン失敗 -->
+    <div class="msg error" th:if="${param.error}">
+        IDまたはパスワードが正しくありません。
+    </div>
+
+    <!-- サインアウト -->
+    <div class="msg ok" th:if="${param.logout}">
+        サインアウトしました。
+    </div>
+
+    <!-- 会員登録の完了案内 -->
+    <div class="msg ok" th:if="${param.signup}">
+        登録完了しました。ログインしてください。
+    </div>
+
+    <form th:action="@{/account/login}" method="post">
+        <!-- ✅ CSRF (csrf disable 안 했으면 필수) -->
+        <input type="hidden" th:if="${_csrf != null}"
+               th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="row">
+            <label for="email">メール</label>
+            <input id="email" name="email" type="email"
+                   autocomplete="username" required />
+        </div>
+
+        <div class="row">
+            <label for="password">パスワード</label>
+            <input id="password" name="password" type="password"
+                   autocomplete="current-password" required />
+        </div>
+
+        <button type="submit">ログイン</button>
+    </form>
+
+    <div class="links">
+        <a th:href="@{/account/sign-up}">会員登録</a>
+        <a th:href="@{/password/forgot}">パスワードを忘れた場合</a>
+    </div>
+</div>
+</body>
+</html>

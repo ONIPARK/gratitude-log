@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gratitude.account.repository.AccountMapper">
+    <select id="existsByEmail" resultType="boolean">
+        SELECT EXISTS (SELECT 1 FROM account WHERE email = #{email})
+    </select>
+
+    <select id="existsByNickname" resultType="boolean">
+        SELECT EXISTS (SELECT 1 FROM account WHERE nickname = #{nickname})
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO account(email, nickname, password, email_verified, joined_at)
+        VALUES(#{email}, #{nickname}, #{password}, #{emailVerified}, #{joinedAt})
+    </insert>
+
+    <select id="findByEmail" resultType="gratitude.account.domain.Account">
+        SELECT id, email, nickname, password,
+
+    </select>
+</mapper>

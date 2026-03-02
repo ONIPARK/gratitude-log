@@ -1,24 +1,78 @@
-//package gratitude.config;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.http.HttpMethod;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig {
-//
+package gratitude.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    // CRUD用
 //    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.authorizeHttpRequests()
-//                .requestMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token",
-//                        "/email-login", "/check-email-login", "/login-link").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/profile/*").permitAll()
-//                .anyRequest().authenticated();
+//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests(auth -> auth
+//                        .anyRequest().permitAll()
+//                )
+//                .csrf(csrf -> csrf.disable());
+//
 //        return http.build();
 //    }
-//}
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // ログインページ確認用
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+       http
+               .authorizeHttpRequests(auth -> auth
+                       .requestMatchers("/account/login", "/account/sign-up", "/gratitude", "/error", "/css/**", "/js/**").permitAll()
+                       .anyRequest().authenticated()
+               )
+               .formLogin(form -> form
+                       .loginPage("/account/login")
+                       .loginProcessingUrl("/account/login")
+                       .usernameParameter("email")
+                       .passwordParameter("password")
+                       .defaultSuccessUrl("/gratitude", true)
+                       .failureUrl("/account/login?error")
+                       .permitAll()
+               )
+               .logout(logout -> logout
+                       .logoutSuccessUrl("/account/login?logout")
+               );
+
+       return http.build();
+    }
+
+
+//    @Bean
+//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/login", "/signup", "/email/verify", "/css/**", "/js/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .loginProcessingUrl("/login")
+//                        .usernameParameter("email") // form nameとの同一
+//                        .passwordParameter("password")
+//                        .defaultSuccessUrl("/", true)
+//                        .failureUrl("/login?error")
+//                )
+//                .logout(logout -> logout.logoutSuccessUrl("/login?logout"));
+//        return http.build();
+//    }
+//
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+}

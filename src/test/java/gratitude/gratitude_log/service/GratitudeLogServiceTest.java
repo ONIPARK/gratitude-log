@@ -24,7 +24,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class GratitudeLogServiceTest {
 
-    @Mock GratitudeLogMapper mapper;
+    @Mock
+    GratitudeLogMapper mapper;
+
+//    @InjectMocks
+//    GratitudeLogService service;
 
     GratitudeLogService service;
 

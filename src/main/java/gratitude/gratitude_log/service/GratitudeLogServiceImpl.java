@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class GratitudeLogServiceImpl implements GratitudeLogService{
 
