@@ -28,10 +28,15 @@
         登録完了しました。ログインしてください。
     </div>
 
+    <div class="alert success" th:if="${param.logout}">
+        ログアウトしました。
+    </div>
+
     <form th:action="@{/account/login}" method="post">
-        <!-- ✅ CSRF (csrf disable 안 했으면 필수) -->
+        <!-- CSRF  -->
         <input type="hidden" th:if="${_csrf != null}"
-               th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
 
         <div class="row">
             <label for="email">メール</label>

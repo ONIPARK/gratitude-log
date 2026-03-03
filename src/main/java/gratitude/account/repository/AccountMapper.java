@@ -3,7 +3,6 @@ package gratitude.account.repository;
 import gratitude.domain.Account;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.security.core.parameters.P;
 
 @Mapper
 public interface AccountMapper {

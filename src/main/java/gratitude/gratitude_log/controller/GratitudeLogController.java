@@ -4,8 +4,10 @@ import gratitude.gratitude_log.dto.GratitudeLogCreateRequest;
 import gratitude.gratitude_log.dto.GratitudeLogEditRequest;
 import gratitude.gratitude_log.dto.GratitudeLogSearchCond;
 import gratitude.gratitude_log.service.GratitudeLogService;
+import gratitude.security.AccountUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +49,9 @@ public class GratitudeLogController {
 
     // READ
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model,
+                       @AuthenticationPrincipal AccountUserDetails user) {
+        model.addAttribute("nickname", user.getNickname());
         model.addAttribute("items", gratitudeLogService.findAll());
         return "gratitude/list";
     }

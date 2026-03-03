@@ -1,6 +1,7 @@
 package gratitude.account.sevice;
 
 import gratitude.account.dto.AccountCreateForm;
+import gratitude.account.dto.AccountReadResponse;
 import gratitude.account.repository.AccountMapper;
 import gratitude.domain.Account;
 import lombok.RequiredArgsConstructor;
@@ -38,4 +39,22 @@ public class AccountServiceImpl implements AccountService {
         accountMapper.insert(account);
         return account.getId();
     }
+
+    @Override
+    public AccountReadResponse findByEmail(String email) {
+        Account a = accountMapper.findByEmail(email);
+        if (a == null) {
+            throw new IllegalStateException("アドレスが見つかりませんでした。: " + email);
+        }
+
+        AccountReadResponse res = new AccountReadResponse();
+        res.setId(a.getId());
+        res.setEmail(a.getEmail());
+        res.setNickname(a.getNickname());
+        res.setEmailVerified(a.isEmailVerified());
+        res.setJoinedAt(a.getJoinedAt());
+        return res;
+    }
+
+
 }

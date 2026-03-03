@@ -32,7 +32,14 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
        http
                .authorizeHttpRequests(auth -> auth
-                       .requestMatchers("/account/login", "/account/sign-up", "/gratitude", "/error", "/css/**", "/js/**").permitAll()
+                       .requestMatchers(
+                               "/account/login",
+                               "/account/sign-up",
+                               "/gratitude",
+                               "/error",
+                               "/css/**",
+                               "/js/**"
+                       ).permitAll()
                        .anyRequest().authenticated()
                )
                .formLogin(form -> form
@@ -40,12 +47,14 @@ public class SecurityConfig {
                        .loginProcessingUrl("/account/login")
                        .usernameParameter("email")
                        .passwordParameter("password")
-                       .defaultSuccessUrl("/gratitude", true)
+                       .defaultSuccessUrl("/gratitude/list", true)
                        .failureUrl("/account/login?error")
                        .permitAll()
                )
                .logout(logout -> logout
                        .logoutSuccessUrl("/account/login?logout")
+                       .invalidateHttpSession(true)
+                       .deleteCookies("JSESSIONID")
                );
 
        return http.build();

@@ -16,8 +16,9 @@
         VALUES(#{email}, #{nickname}, #{password}, #{emailVerified}, #{joinedAt})
     </insert>
 
-    <select id="findByEmail" resultType="gratitude.account.domain.Account">
-        SELECT id, email, nickname, password,
-
+    <select id="findByEmail" resultType="gratitude.domain.Account">
+        SELECT id, email, nickname, password, email_verified, email_check_token, joined_at
+        FROM account
+        WHERE email = #{email}
     </select>
 </mapper>
